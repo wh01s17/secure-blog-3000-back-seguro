@@ -26,6 +26,16 @@ CREATE TABLE posts (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Insertar admin
+INSERT INTO users (name, email, role, password_hash, created_at)
+VALUES(
+    'admin',
+    'admin@example.com',
+    'admin',
+    '$2b$15$vQVOw12HzVt/9XdqHuDOCOj5cmRy3X/WzCR..wfoIyb7yAAygjJBu',
+    NOW()
+);
+
 -- Insertar posts
 INSERT INTO posts (title, description, body, created_at, user_id)
 VALUES 

@@ -1,0 +1,8 @@
+PUT http://localhost:3001/api/posts/1
+Content-Type: application/json
+
+{
+    "title": "test post edited",
+    "description": "Test post edit para probar el backend",
+    "body": "no lorem ipsum"
+}
