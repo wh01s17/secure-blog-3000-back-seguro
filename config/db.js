@@ -16,6 +16,7 @@ const pool = mariadb.createPool({
     password: process.env.MARIADB_PASSWORD,
     database: process.env.MARIADB_DATABASE,
     connectionLimit: 5,  // Límite de conexiones simultáneas
+    acquireTimeout: 5000, // Tiempo máximo para obtener una conexión
 })
 
 async function connect() {
@@ -25,7 +26,7 @@ async function connect() {
         conn.release()  // Liberar la conexión
     } catch (error) {
         if (process.env.NODE_ENV !== 'production') {
-            console.error('Error connecting to MariaDB:', error)
+            console.error(`[${new Date().toISOString()}] Error connecting to DB at ${process.env.MARIADB_HOST}`)
         } else {
             console.error('Error connecting to database')
         }
