@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/users/3
+Content-Type: application/json
+
+{
+    "name": "nameUpdated",
+    "email": "new@new.com"
+}
