@@ -1,5 +1,6 @@
 POST http://localhost:3001/api/users
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MTY1ODcxNSwiZXhwIjoxNzUxNjY1OTE1fQ.3DqjlxOh0rXxiqjXzvu20bhHP0PfVrRgISw08VTPHOw
 
 {
     "name": "hacker",

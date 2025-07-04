@@ -5,3 +5,12 @@ Content-Type: application/json
     "email": "admin@example.com",
     "password": "admin123"
 }
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "email": "hacker@example.com",
+    "password": "pwned123"
+}

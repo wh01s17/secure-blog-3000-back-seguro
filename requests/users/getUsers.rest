@@ -1,5 +1,8 @@
+
 GET http://localhost:3001/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImhhY2tlciIsImVtYWlsIjoiaGFja2VyQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxNjU5MDY2LCJleHAiOjE3NTE2NjYyNjZ9.rLtUkykeVTMvSKrMPoR0Wcs7QJWqBtOaZrc4q2MFiCE
 
 
 ###
-GET http://localhost:3001/api/users/5
+GET http://localhost:3001/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MTY1ODcxNSwiZXhwIjoxNzUxNjY1OTE1fQ.3DqjlxOh0rXxiqjXzvu20bhHP0PfVrRgISw08VTPHOw
