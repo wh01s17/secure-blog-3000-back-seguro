@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const { param, body, validationResult } = require('express-validator')
 const router = express.Router()
 const db = require('../config/db')
-const { authenticateToken, requireAdmin, requireAdminOrOwner } = require('../middleware/auth')
+const { authenticateToken, requireAdmin } = require('../middleware/auth')
 
 const SALT_ROUNDS = 15
 

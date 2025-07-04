@@ -22,7 +22,12 @@ const pool = mariadb.createPool({
 async function connect() {
     try {
         const conn = await pool.getConnection()
-        console.log('Connected to MariaDB')
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('Connected to MariaDB')
+        } else {
+            console.log('Connected to database')
+        }
+
         conn.release()  // Liberar la conexión
     } catch (error) {
         if (process.env.NODE_ENV !== 'production') {
