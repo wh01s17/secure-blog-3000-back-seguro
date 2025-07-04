@@ -62,8 +62,7 @@ router.get('/api/posts', async (req, res) => {
                 p.created_at, 
                 p.updated_at,
                 p.user_id,
-                u.name as author_name,
-                u.email as author_email
+                u.name as author_name
             FROM posts p
             INNER JOIN users u ON p.user_id = u.id
             WHERE p.is_deleted = FALSE
