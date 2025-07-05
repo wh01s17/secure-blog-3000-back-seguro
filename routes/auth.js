@@ -8,7 +8,6 @@ const { body, validationResult } = require('express-validator')
 const { authenticateToken } = require('../middleware/auth')
 
 const SALT_ROUNDS = 15
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutos
