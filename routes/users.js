@@ -1,12 +1,14 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const rateLimit = require('express-rate-limit')
 const { param, body, validationResult } = require('express-validator')
 const router = express.Router()
 const db = require('../config/db')
 const { authenticateToken, requireAdmin } = require('../middleware/auth')
 
 const SALT_ROUNDS = 15
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Crear un usuario con contraseña segura (Solo administradores)
 router.post(
@@ -235,12 +237,27 @@ router.post(
     }
 )
 
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 5, // máximo 5 intentos
+    message: 'Demasiados intentos de login',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 // Login (público)
 router.post(
     '/api/login',
+    loginLimiter,
     [
-        body('email').isEmail().withMessage('Debes ingresar un email válido'),
-        body('password').notEmpty().withMessage('La contraseña es obligatoria')
+        body('email')
+            .isEmail()
+            .normalizeEmail()
+            .isLength({ max: 255 })
+            .withMessage('Email inválido'),
+        body('password')
+            .isLength({ min: 1, max: 128 })
+            .withMessage('Contraseña inválida')
     ],
     async (req, res) => {
         const errors = validationResult(req)
@@ -254,7 +271,6 @@ router.post(
             const rows = await db.execute('SELECT * FROM users WHERE email = ?', [email])
 
             if (rows.length === 0) {
-                console.log('bad email')
                 return res.status(401).json({ message: 'Credenciales inválidas' })
             }
 
@@ -262,15 +278,16 @@ router.post(
             const isPasswordCorrect = await bcrypt.compare(password, user.password_hash)
 
             if (!isPasswordCorrect) {
-                console.log('bad password')
                 return res.status(401).json({ message: 'Credenciaels inválidas' })
+            }
+
+            if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+                throw new Error('JWT_SECRET debe tener al menos 32 caracteres');
             }
 
             const token = jwt.sign(
                 {
                     id: user.id,
-                    name: user.name,
-                    email: user.email,
                     role: user.role
                 },
                 process.env.JWT_SECRET,
