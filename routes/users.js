@@ -263,8 +263,7 @@ router.post(
 
             if (!isPasswordCorrect) {
                 console.log('bad password')
-                return res.status(401).json({ message: 'Credenciales inválidas' })
-
+                return res.status(401).json({ message: 'Credenciaels inválidas' })
             }
 
             const token = jwt.sign(
@@ -275,12 +274,22 @@ router.post(
                     role: user.role
                 },
                 process.env.JWT_SECRET,
-                { expiresIn: '2h' }
+                {
+                    expiresIn: '2h'
+                }
             )
 
+            // Setear cookie segura
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // true en producción
+                sameSite: 'Strict',
+                maxAge: 2 * 60 * 60 * 1000 // 2 horas en milisegundos
+            })
+
+            // Puedes devolver los datos del usuario si es necesario
             res.json({
                 message: 'Login exitoso',
-                token,
                 user: {
                     id: user.id,
                     name: user.name,
