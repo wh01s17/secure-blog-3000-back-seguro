@@ -1,0 +1,2 @@
+POST http://localhost:3001/api/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUxNzQ0MDIwLCJleHAiOjE3NTE3NTEyMjB9.7MAVbsh0hA30z0PEmdR8GUBfQdR0DC4UNPziBvJppUs

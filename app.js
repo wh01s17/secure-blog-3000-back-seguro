@@ -1,11 +1,21 @@
 require('dotenv').config()
 const express = require('express')
 const helmet = require('helmet')
+const morgan = require('morgan')
+const cors = require('cors')
+const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/users')
 const postRoutes = require('./routes/posts')
 const app = express()
 
 app.use(express.json())
+app.use(morgan('tiny'))
+app.use(cors({
+    origin: 'http://localhost:3000', // URL de tu frontend
+    credentials: true, // Permitir cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+}))
 
 // Middleware de seguridad con helmet
 app.use(helmet({
@@ -25,6 +35,7 @@ app.use(helmet({
 }))
 
 app.use('/', userRoutes)
+app.use('/', authRoutes)
 app.use('/', postRoutes)
 
 const PORT = process.env.PORT
